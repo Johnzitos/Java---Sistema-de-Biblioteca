@@ -138,40 +138,71 @@ public class Main {
 
             } else if (opcao == 5) {
                 leitor.nextLine();
-                System.out.print("Qual o título da publicação que deseja renovar?: ");
-                String tituloRenovar = leitor.nextLine();
-                boolean encontrou = false;
+                System.out.print("Qual é o CPF do usuário?: ");
+                String cpfRenovar = leitor.nextLine();
+                Usuario usuarioRenovar = null;
 
-                for (Emprestimo emp : listaEmprestimos) {
-                    if (emp.getPublicacao().getTitulo().equals(tituloRenovar) && !emp.isDevolvido()) {
-                        emp.renovar();
-                        encontrou = true;
+                for (Usuario u : listaUsuarios) {
+                    if (u.getCpf().equals(cpfRenovar)) {
+                        usuarioRenovar = u;
                         break;
                     }
                 }
 
-                if (!encontrou) {
-                    System.out.println("Nenhum empréstimo ativo encontrado com esse título.");
+                if (usuarioRenovar == null) {
+                    System.out.println("Erro: Usuário não encontrado no sistema.");
+                } else {
+
+                    System.out.print("Qual o título da publicação que deseja renovar?: ");
+                    String tituloRenovar = leitor.nextLine();
+                    boolean encontrou = false;
+
+                    for (Emprestimo emp : listaEmprestimos) {
+                        if (emp.getPublicacao().getTitulo().equals(tituloRenovar) && !emp.isDevolvido() && emp.getUsuario().getCpf().equals(cpfRenovar)) {
+                            emp.renovar();
+                            encontrou = true;
+                            break;
+                        }
+                    }
+
+                    if (!encontrou) {
+                        System.out.println("Nenhum empréstimo ativo encontrado com esse título.");
+                    }
                 }
             } else if (opcao == 6) {
 
                 leitor.nextLine();
-                System.out.print("Qual o título da publicação que deseja devolver?: ");
-                String tituloDevolver = leitor.nextLine();
-                Emprestimo emprestimoParaRemover = null;
+                System.out.print("Qual é o CPF do usuário?: ");
+                String cpfDevolver = leitor.nextLine();
+                Usuario usuarioDevolver = null;
 
-                for (Emprestimo emp : listaEmprestimos) {
-                    if (emp.getPublicacao().getTitulo().equals(tituloDevolver) && !emp.isDevolvido()) {
-                        emp.devolver();
-                        emprestimoParaRemover = emp;
+                for (Usuario u : listaUsuarios) {
+                    if (u.getCpf().equals(cpfDevolver)) {
+                        usuarioDevolver = u;
                         break;
                     }
                 }
 
-                if (emprestimoParaRemover != null) {
-                    listaEmprestimos.remove(emprestimoParaRemover);
+                if (usuarioDevolver == null) {
+                    System.out.println("Erro: Usuário não encontrado no sistema.");
                 } else {
-                    System.out.println("Nenhum empréstimo ativo encontrado com esse título.");
+                    System.out.print("Qual o título da publicação que deseja devolver?: ");
+                    String tituloDevolver = leitor.nextLine();
+                    Emprestimo emprestimoParaRemover = null;
+
+                    for (Emprestimo emp : listaEmprestimos) {
+                        if (emp.getPublicacao().getTitulo().equals(tituloDevolver) && !emp.isDevolvido() && emp.getUsuario().getCpf().equals(cpfDevolver)) {
+                            emp.devolver();
+                            emprestimoParaRemover = emp;
+                            break;
+                        }
+                    }
+
+                    if (emprestimoParaRemover != null) {
+                        listaEmprestimos.remove(emprestimoParaRemover);
+                    } else {
+                        System.out.println("Nenhum empréstimo ativo encontrado com esse título para este usuário.");
+                    }
                 }
             }
         }
