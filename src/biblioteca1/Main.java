@@ -131,7 +131,12 @@ public class Main {
                     String dtDefesa = leitor.nextLine();
                     System.out.print("Instituição: ");
                     String instituicao = leitor.nextLine();
+                    System.out.print("Nome do Autor: ");
+                    String nomeAutor = leitor.nextLine();
+                    System.out.print("Titularidade do Autor: ");
+                    String titularidade = leitor.nextLine();
                     Tese novaTese = new Tese(paginas, resumo, dtDefesa, instituicao, data, titulo, multa);
+                    novaTese.setAutor(new Autor(nomeAutor, titularidade));
                     minhaBiblioteca.adicionarPublicacao(novaTese);
                     System.out.println("Tese adicionada ao acervo!");
                 }
@@ -152,7 +157,6 @@ public class Main {
                 if (usuarioRenovar == null) {
                     System.out.println("Erro: Usuário não encontrado no sistema.");
                 } else {
-
                     System.out.print("Qual o título da publicação que deseja renovar?: ");
                     String tituloRenovar = leitor.nextLine();
                     boolean encontrou = false;
@@ -166,7 +170,7 @@ public class Main {
                     }
 
                     if (!encontrou) {
-                        System.out.println("Nenhum empréstimo ativo encontrado com esse título.");
+                        System.out.println("Nenhum empréstimo ativo encontrado com esse título para este usuário.");
                     }
                 }
             } else if (opcao == 6) {
