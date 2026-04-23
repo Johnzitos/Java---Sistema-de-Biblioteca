@@ -1,6 +1,5 @@
 package biblioteca1;
 
-
 public class Tese extends Publicacao {
     private int num_paginas;
     private String resumo;
@@ -15,14 +14,28 @@ public class Tese extends Publicacao {
         this.instituicao = instituicao;
     }
 
+    public void getInfo() {
+        System.out.println("Informações: Data: " + getDt_publicacao() + " | Titulo: " + getTitulo() + " | Número de páginas: " + getNum_paginas() + " | Resumo: " + getResumo() + " | Data da defesa: " + getDt_defesa() + " | Instituição: " + getInstituicao());
+    }
 
-    
-    
-public void getInfo() {
-    System.out.println("Informações: Data: " + getDt_publicacao() + " | Titulo: " + getTitulo() + " | Número de páginas: " + getNum_paginas() + " | Resumo: " + getResumo() + " | Data da defesa: " + getDt_defesa() + " | Instituição: " + getInstituicao());
-}
+    /**
+     * @return the autor
+     */
+    public Autor getAutor() {
+        return getAutores().get(0);
+    }
 
+    /**
+     * @param autor the autor to set
+     */
+    public void setAutor(Autor autor) {
+        getAutores().clear();
+        getAutores().add(autor);
+    }
 
+    /**
+     * @return the num_paginas
+     */
     public int getNum_paginas() {
         return num_paginas;
     }
@@ -75,5 +88,4 @@ public void getInfo() {
     public void setInstituicao(String instituicao) {
         this.instituicao = instituicao;
     }
-
 }
